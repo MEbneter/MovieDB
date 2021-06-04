@@ -21,8 +21,6 @@ public class MovieView extends JFrame {
 	private JPanel contentPane;
 	private JButton btnAddMovie;
 
-	
-	
 
 	/**
 	 * Create the frame.
