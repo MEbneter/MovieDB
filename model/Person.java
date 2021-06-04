@@ -13,8 +13,13 @@ public class Person {
 		this.schauspieler=schauspieler;
 	}
 	
-	public boolean getAufgabe () {
-		return this.schauspieler;
+	public String getAufgabe () {
+		String aufgabe;
+		if (this.schauspieler) {
+			return "Schauspieler";
+		}else {
+			return "Regisseur";
+		}
 	}
 	
 	public String getVName() {
