@@ -17,7 +17,8 @@ public class TestFilm {
 		leute.add(new Person("Jeff","Fahey", true));
 		leute.add(new Person("Bruce","Willis", true));
 		leute.add(new Person("Josh","Brolin", true));
-		Film planetTerror = new Film("Planet Terror", "Action", leute, 2007);
+		Film planetTerror = new Film("Planet Terror", "Action", 2007);
+		planetTerror.addLeute(leute);
 		assertEquals("Planet Terror", planetTerror.getTitel());
 	}
 	
@@ -27,7 +28,8 @@ public class TestFilm {
 		leute.add(new Person("Jeff","Fahey", true));
 		leute.add(new Person("Bruce","Willis", true));
 		leute.add(new Person("Josh","Brolin", true));
-		Film planetTerror = new Film("Planet Terror", "Action", leute, 2007);
+		Film planetTerror = new Film("Planet Terror", "Action", 2007);
+		planetTerror.addLeute(leute);
 		assertEquals("Action", planetTerror.getGenre());
 	}
 	
@@ -37,7 +39,8 @@ public class TestFilm {
 		leute.add(new Person("Jeff","Fahey", true));
 		leute.add(new Person("Bruce","Willis", true));
 		leute.add(new Person("Josh","Brolin", true));
-		Film planetTerror = new Film("Planet Terror", "Action", leute, 2007);
+		Film planetTerror = new Film("Planet Terror", "Action", 2007);
+		planetTerror.addLeute(leute);
 		assertEquals(leute, planetTerror.getLeute());
 		// assertArrayEquals(leute[i],planetTerror.getLeute()[i]);
 	}
@@ -48,7 +51,8 @@ public class TestFilm {
 		leute.add(new Person("Jeff","Fahey", true));
 		leute.add(new Person("Bruce","Willis", true));
 		leute.add(new Person("Josh","Brolin", true));
-		Film planetTerror = new Film("Planet Terror", "Action", leute, 2007);
+		Film planetTerror = new Film("Planet Terror", "Action", 2007);
+		planetTerror.addLeute(leute);
 		assertEquals(2007, planetTerror.getErscheinungsjahr());
 	}
 	
@@ -58,7 +62,8 @@ public class TestFilm {
 		leute.add(new Person("Jeff","Fahey", true));
 		leute.add(new Person("Bruce","Willis", true));
 		leute.add(new Person("Josh","Brolin", true));
-		Film planetTerror = new Film("Planet Terror", "Action", leute, 2007);
+		Film planetTerror = new Film("Planet Terror", "Action", 2007);
+		planetTerror.addLeute(leute);
 		assertEquals(3, planetTerror.getSizeLeute());
 	}
 	
@@ -69,7 +74,8 @@ public class TestFilm {
 		leute.add(new Person("Jeff","Fahey", true));
 		leute.add(new Person("Bruce","Willis", true));
 		leute.add(new Person("Josh","Brolin", true));
-		Film planetTerror = new Film("Planet Terror", "Action", leute, 2007);
+		Film planetTerror = new Film("Planet Terror", "Action", 2007);
+		planetTerror.addLeute(leute);
 		Person rod = new Person("Robert","Rodriguez", false);
 		planetTerror.addPerson(rod);
 		assertEquals(rod, planetTerror.getPerson(3));

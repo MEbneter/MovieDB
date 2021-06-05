@@ -10,10 +10,9 @@ public class Film {
 	private ArrayList<Person> leute;
 	int erscheinungsjahr;
 	
-	public Film(String titel, String genre, ArrayList<Person> leute, int erscheinungsjahr) {
+	public Film(String titel, String genre, int erscheinungsjahr) {
 		this.titel=titel;
 		this.genre=genre;
-		this.leute=leute;
 		this.erscheinungsjahr=erscheinungsjahr;
 	}
 	
@@ -27,6 +26,10 @@ public class Film {
 	
 	public ArrayList<Person> getLeute() {
 		return this.leute;
+	}
+	
+	public void addLeute(ArrayList<Person> leute) {
+		this.leute = leute;
 	}
 	
 	public int getErscheinungsjahr () {

@@ -21,15 +21,21 @@ import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MovieView extends JFrame {
 
 	private JPanel contentPane;
 	public JList<FilmList> movieList;
-	private JLabel lblTitel;
-	private JLabel lblErscheinungsjahr;
-	private JLabel lblGenre;
 	public JList<Person> personList;
+	public JButton btnAddPerson;
+	private JPanel panel_3;
+	public JLabel lblErscheinungsjahr;
+	public JLabel lblTitel;
+	public JButton btnAddMovie;
+	public JLabel lblGenre;
 
 
 	/**
@@ -37,7 +43,7 @@ public class MovieView extends JFrame {
 	 */
 	public MovieView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 640, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -67,11 +73,24 @@ public class MovieView extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnAddMovie = new JButton("add movie");
-		panel_2.add(btnAddMovie, BorderLayout.NORTH);
+		panel_3 = new JPanel();
+		panel_2.add(panel_3, BorderLayout.NORTH);
+		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		btnAddPerson = new JButton("add person");
+		btnAddPerson.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_3.add(btnAddPerson);
+		
+		btnAddMovie = new JButton("add movie");
+		btnAddMovie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAddMovie.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_3.add(btnAddMovie);
 		
 		personList = new JList<Person>();
-		panel_2.add(personList);
+		panel_2.add(personList, BorderLayout.CENTER);
 	}
 
 }

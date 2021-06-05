@@ -1,13 +1,20 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 import model.Film;
 import model.FilmList;
 import model.Person;
 import view.MovieView;
+import view.NewMovieWindow;
+import view.NewPersonWindow;
 
 public class MovieController {
 
@@ -15,36 +22,45 @@ public class MovieController {
 	private ArrayList<Person> leute;
 	private Film terror;
 	private MovieView view;
+	private MyActions btnAction;
+	private MyMouseAction mouseAction;
+	private NewMovieWindow newMovie;
+	private NewPersonWindow newPerson;
+	private Film selectedMovie;
+	private int movieIndex;
 	
 	
 	public static void main(String[] args) {
 		MovieController myController = new MovieController();
 		myController.testDaten();
-		myController.printDaten(0);
-		myController.setLists();
+		myController.setMovieList();
 		myController.run();
-		// irgend ne run funktion gehört hier noch hin fürs GUI wenns dann mal existiert
 	}
 	
 	public MovieController (){
 		view = new MovieView();
+		newMovie = new NewMovieWindow(this.view);
+		newPerson = new NewPersonWindow(this.view);
+		btnAction = new MyActions();
+		mouseAction = new MyMouseAction();
 	}
 	
 	public void run () {
+		// newMovie addActionListner
+		this.newMovie.btnMovieHinzu.addActionListener(btnAction);
+		// newPerson addActionListner
+		this.newPerson.btnPersonHinzu.addActionListener(btnAction);
+		// view mit addActionListner
+		this.view.btnAddPerson.addActionListener(btnAction);
+		this.view.btnAddMovie.addActionListener(btnAction);
+		this.view.movieList.addMouseListener(mouseAction);
 		this.view.setVisible(true);
 	}
 	
-	public void setLists () {
+	public void setMovieList () {
 		DefaultListModel movieListModel = new DefaultListModel<>();
 		movieListModel.addElement(this.modelz.getElementAt(0).getTitel());
 		view.movieList.setModel(movieListModel);
-		DefaultListModel personListModel = new DefaultListModel<>();
-		for (Person dude : leute) {
-			String theDude = dude.getNName() + " " + dude.getNName() + " / " + dude.getAufgabe();
-			personListModel.addElement(theDude);
-		}
-		view.personList.setModel(personListModel); 
-		// going to be loaded on MovieListSelection via the MouseListner Interface in the Future	
 	}
 	
 	public void testDaten () {
@@ -52,21 +68,102 @@ public class MovieController {
 		leute.add(new Person("Jeff","Fahey", true));
 		leute.add(new Person("Bruce","Willis", true));
 		leute.add(new Person("Josh","Brolin", true));
-		terror = new Film("Planet Terror", "Action", leute, 2007);
+		terror = new Film("Planet Terror", "Action", 2007);
+		terror.addLeute(leute);
 		modelz.addFilm(terror);
 	}
 	
-	public void printDaten (int index) {
-		Film showMe = modelz.getElementAt(index);
-		System.out.println("filmTitel:");
-		System.out.println(showMe.getTitel());
-		System.out.println("genre:");
-		System.out.println(showMe.getGenre());
-		System.out.println("erscheinungsjahr:");
-		System.out.println(showMe.getErscheinungsjahr());
-		System.out.println("Mitwirkende Personen:");
-		for (Person folks : showMe.getLeute()) {
-			System.out.println(folks.getVName() + " " + folks.getNName());
+	public class MyActions implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent hui) {
+			// TODO Auto-generated method stub
+			Object button = hui.getSource();
+			/**
+			 * Fenster addMovie öffnen
+			 */
+			if (button == view.btnAddMovie) {
+				newMovie.setVisible(true);
+			}
+			/**
+			 * Fenster addPerson öffnen
+			 */
+			else if (button == view.btnAddPerson) {
+				try {
+					newPerson.setTitle(modelz.getElementAt(view.movieList.getSelectedIndex()).getTitel());
+					newPerson.setVisible(true);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(view, "Bitte Film zum hinzufügen einer Person auswählen.");
+				}
+			}
+			/**
+			 * person dem Film hinzufügen
+			 */
+			else if (button == newPerson.btnPersonHinzu) {
+				String vName= newPerson.txtVname.getText();
+				String nName= newPerson.txtNname.getText();
+				Boolean aufgabe = true;
+				if (newPerson.rdbtnRegisseur.isSelected()) {
+					aufgabe = false;
+				}
+				if (vName.length() > 0 && nName.length() > 0) {
+				Person newDude = new Person(vName, nName, aufgabe);
+				modelz.getElementAt(movieIndex).addPerson(newDude);
+				newPerson.setVisible(false);
+				} else {
+					JOptionPane.showMessageDialog(view, "Bitte alle Felder ausfüllen.");
+				}
+			}
+			/**
+			 * Movie der Liste hinzufügen hoffentlich bald
+			 */
+			else if (button == newMovie.btnMovieHinzu) {
+				newMovie.setVisible(false);
+			}
 		}
+	}
+	
+	public class MyMouseAction implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent hey) {
+			// TODO Auto-generated method stub
+			Object liste = hey.getSource();
+			if (liste == view.movieList) {
+				movieIndex = view.movieList.getSelectedIndex();
+				selectedMovie = modelz.getElementAt(movieIndex);
+				DefaultListModel personListModel = new DefaultListModel<>();
+				for (Person dude : selectedMovie.getLeute()) {
+					String theDude = dude.getVName() + " " + dude.getNName() + " / " + dude.getAufgabe();
+					personListModel.addElement(theDude);
+				}
+				view.personList.setModel(personListModel);
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent hey) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent hey) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent hey) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent hey) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }

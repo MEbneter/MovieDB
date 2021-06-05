@@ -9,10 +9,15 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.ButtonGroup;
 
 public class NewPersonWindow extends JDialog {
-	private JTextField txtVname;
-	private JTextField txtNname;
+	public final ButtonGroup buttonGroup = new ButtonGroup();
+	public JRadioButton rdbtnRegisseur;
+	public JRadioButton rdbtnSchauspieler;
+	public JButton btnPersonHinzu;
+	public JTextField txtNname;
+	public JTextField txtVname;
 
 	/**
 	 * Launch the application.
@@ -38,10 +43,13 @@ public class NewPersonWindow extends JDialog {
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.NORTH);
 		
-		JRadioButton rdbtnRegisseur = new JRadioButton("Regisseur");
+		rdbtnRegisseur = new JRadioButton("Regisseur");
+		buttonGroup.add(rdbtnRegisseur);
 		panel.add(rdbtnRegisseur);
 		
-		JRadioButton rdbtnSchauspieler = new JRadioButton("Schauspieler");
+		rdbtnSchauspieler = new JRadioButton("Schauspieler");
+		buttonGroup.add(rdbtnSchauspieler);
+		rdbtnSchauspieler.setSelected(true);
 		panel.add(rdbtnSchauspieler);
 		
 		JPanel panel_1 = new JPanel();
@@ -57,7 +65,6 @@ public class NewPersonWindow extends JDialog {
 		
 		txtVname = new JTextField();
 		panel_2.add(txtVname);
-		txtVname.setText("vName");
 		txtVname.setColumns(10);
 		
 		JPanel panel_3 = new JPanel();
@@ -69,11 +76,10 @@ public class NewPersonWindow extends JDialog {
 		
 		txtNname = new JTextField();
 		panel_3.add(txtNname);
-		txtNname.setText("nName");
 		txtNname.setColumns(10);
 		
-		JButton btnHinzufgen = new JButton("hinzuf\u00FCgen");
-		panel_1.add(btnHinzufgen);
+		btnPersonHinzu = new JButton("hinzuf\u00FCgen");
+		panel_1.add(btnPersonHinzu);
 		this.initApp();
 	}
 	private void initApp() {

@@ -7,12 +7,14 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
 
 public class NewMovieWindow extends JDialog {
-	private JTextField txtName;
+	public JTextField txtName;
+	public JTextField comboBox;
+	public JComboBox comboBox_1;
+	public JButton btnMovieHinzu;
 
 	/**
 	 * Launch the application.
@@ -54,7 +56,7 @@ public class NewMovieWindow extends JDialog {
 		JLabel lblNewLabel = new JLabel(" Erscheinungsjahr: ");
 		panel_2.add(lblNewLabel, BorderLayout.WEST);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JTextField();
 		panel_2.add(comboBox);
 		
 		JPanel panel_3 = new JPanel();
@@ -64,15 +66,16 @@ public class NewMovieWindow extends JDialog {
 		JLabel lblGenre = new JLabel(" Genre: ");
 		panel_3.add(lblGenre, BorderLayout.WEST);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		String[] genres = {"Action", "Comedy", "Romance", "SiFi", "Fantasy"};
+		comboBox_1 = new JComboBox(genres);
 		panel_3.add(comboBox_1);
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JButton btnHinzufgen = new JButton("hinzuf\u00FCgen");
-		panel.add(btnHinzufgen);
+		btnMovieHinzu = new JButton("hinzuf\u00FCgen");
+		panel.add(btnMovieHinzu);
 		this.initApp();
 	}
 	private void initApp() {
