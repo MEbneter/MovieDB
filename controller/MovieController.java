@@ -57,6 +57,8 @@ public class MovieController {
 		// newPerson addActionListner
 		this.newPerson.btnPersonHinzu.addActionListener(btnAction);
 		// view mit addActionListner
+		this.view.cbFilterGenre.addActionListener(btnAction);
+		this.view.cbFilterAufgabe.addActionListener(btnAction);
 		this.view.btnAddPerson.addActionListener(btnAction);
 		this.view.btnAddMovie.addActionListener(btnAction);
 		this.view.movieList.addMouseListener(mouseAction);
@@ -74,13 +76,18 @@ public class MovieController {
 	}
 	
 	public void testDaten () {
-		leute = new ArrayList<Person>();
-		leute.add(new Person("Jeff","Fahey", true));
-		leute.add(new Person("Bruce","Willis", true));
-		leute.add(new Person("Josh","Brolin", true));
-		terror = new Film("Planet Terror", "Action", 2007);
-		terror.addLeute(leute);
-		modelz.addFilm(terror);
+		
+		Film[] terror = new Film[8];
+		for (int i = 0; i < terror.length; i++) {
+			leute = new ArrayList<Person>();
+			leute.add(new Person("Jeff"+ i,"Fahey", true));
+			leute.add(new Person("Bruce"+ i,"Willis", true));
+			leute.add(new Person("Josh"+ i,"Brolin", true));
+			leute.add(new Person("Robert"+ i,"Rodriguez", false));
+			terror[i] = new Film("Planet Terror"+i, "Action", 2007);
+			terror[i].addLeute(leute);
+			modelz.addFilm(terror[i]);
+		}
 	}
 	/*
 	public static void saveMovieList (FilmList filmListe) {
@@ -94,7 +101,10 @@ public class MovieController {
 			
 			// Hier sollts ins file schreiben
 			//out.writeObject(modelz.getFilme());
-			out.writeObject(modelz);
+			//out.writeObject(modelz);
+			for (Film f : modelz.getFilme()){
+				out.writeObject(f);
+			}
 			out.close();
 			file.close();		
 			System.out.println("Object wurde serializsiert");
@@ -197,6 +207,38 @@ public class MovieController {
 						JOptionPane.showMessageDialog(view, "Bitte eingabe überprüfen.");
 				}
 			}
+			/**
+			 * Filter für Genre
+			 */
+			else if (button == view.cbFilterGenre) {
+				DefaultListModel movieListModel = new DefaultListModel<>();
+					for (Film film : modelz.getFilme()) {		
+						if (film.getGenre() == view.cbFilterGenre.getSelectedItem()) {
+							movieListModel.addElement(film.getTitel());
+						} else if (view.cbFilterGenre.getSelectedIndex() == 0) {
+							movieListModel.addElement(film.getTitel());
+						}
+					}
+				view.movieList.setModel(movieListModel);
+					
+			}
+			/**
+			 * Filter für Aufgabe
+			 */
+			else if (button == view.cbFilterAufgabe) {
+				
+				DefaultListModel personListModel = new DefaultListModel<>();
+				for (Person dude : selectedMovie.getLeute()) {
+					String theDude = dude.getVName() + " " + dude.getNName() + " / " + dude.getAufgabe();
+					System.out.println(view.cbFilterAufgabe.getSelectedItem() + " ?= " + dude.getAufgabe());
+					if (dude.getAufgabe() == view.cbFilterAufgabe.getSelectedItem()) {
+						personListModel.addElement(theDude);
+					} else if (view.cbFilterAufgabe.getSelectedIndex() == 0) {
+						System.out.println(view.cbFilterAufgabe.getSelectedIndex());
+						personListModel.addElement(theDude);
+					}
+				}
+			}
 		}
 	}
 	
@@ -219,6 +261,9 @@ public class MovieController {
 					// TODO: handle exception
 					personListModel.removeAllElements();
 				}
+				view.lblTitel.setText("Titel: " + selectedMovie.getTitel());
+				view.lblGenre.setText("Genre: " + selectedMovie.getGenre());
+				view.lblErscheinungsjahr.setText( "Erscheinungsjahr: " + selectedMovie.getErscheinungsjahr());
 				view.personList.setModel(personListModel);
 			}
 		}

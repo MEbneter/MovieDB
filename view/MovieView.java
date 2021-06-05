@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,18 +10,16 @@ import model.Person;
 
 import javax.swing.JList;
 import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
-
-import java.awt.CardLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.border.CompoundBorder;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class MovieView extends JFrame {
 
@@ -36,6 +32,10 @@ public class MovieView extends JFrame {
 	public JLabel lblTitel;
 	public JButton btnAddMovie;
 	public JLabel lblGenre;
+	private JLabel lblNewLabel;
+	public JComboBox cbFilterGenre;
+	private JLabel lblFilterByAufgabe;
+	public JComboBox cbFilterAufgabe;
 
 
 	/**
@@ -54,27 +54,11 @@ public class MovieView extends JFrame {
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		movieList = new JList<FilmList>();
+		movieList.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		panel_1.add(movieList);
 		
-		JPanel panel = new JPanel();
-		panel_1.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new GridLayout(3, 1, 0, 0));
-		
-		lblTitel = new JLabel("Titel: ");
-		panel.add(lblTitel);
-		
-		lblErscheinungsjahr = new JLabel("Erscheinungsjahr: ");
-		panel.add(lblErscheinungsjahr);
-		
-		lblGenre = new JLabel("Genre: ");
-		panel.add(lblGenre);
-		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2);
-		panel_2.setLayout(new BorderLayout(0, 0));
-		
 		panel_3 = new JPanel();
-		panel_2.add(panel_3, BorderLayout.NORTH);
+		panel_1.add(panel_3, BorderLayout.NORTH);
 		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		btnAddPerson = new JButton("add person");
@@ -89,8 +73,40 @@ public class MovieView extends JFrame {
 		btnAddMovie.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(btnAddMovie);
 		
+		lblNewLabel = new JLabel("Filter by Genre:");
+		panel_3.add(lblNewLabel);
+		
+		String[] genres = {"All" ,"Action", "Comedy", "Romance", "SiFi", "Fantasy"};
+		cbFilterGenre = new JComboBox(genres);
+		panel_3.add(cbFilterGenre);
+		
+		JPanel panel_2 = new JPanel();
+		contentPane.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
 		personList = new JList<Person>();
+		personList.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		panel_2.add(personList, BorderLayout.CENTER);
+		
+		JPanel panel = new JPanel();
+		panel_2.add(panel, BorderLayout.NORTH);
+		panel.setLayout(new GridLayout(5, 1, 0, 0));
+		
+		lblTitel = new JLabel("Titel: ");
+		panel.add(lblTitel);
+		
+		lblErscheinungsjahr = new JLabel("Erscheinungsjahr: ");
+		panel.add(lblErscheinungsjahr);
+		
+		lblGenre = new JLabel("Genre: ");
+		panel.add(lblGenre);
+		
+		lblFilterByAufgabe = new JLabel("Filter by Aufgabe:");
+		panel.add(lblFilterByAufgabe);
+		
+		String[] aufgaben = {"All", "Schauspieler", "Regisseur"};
+		cbFilterAufgabe = new JComboBox(aufgaben);
+		panel.add(cbFilterAufgabe);
 	}
 
 }

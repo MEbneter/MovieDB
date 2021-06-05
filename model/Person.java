@@ -17,7 +17,7 @@ public class Person {
 		String aufgabe;
 		if (this.schauspieler) {
 			return "Schauspieler";
-		}else {
+		} else {
 			return "Regisseur";
 		}
 	}
