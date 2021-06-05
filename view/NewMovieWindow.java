@@ -12,8 +12,8 @@ import java.awt.BorderLayout;
 
 public class NewMovieWindow extends JDialog {
 	public JTextField txtName;
-	public JTextField comboBox;
-	public JComboBox comboBox_1;
+	public JTextField txtJahr;
+	public JComboBox cbGenre;
 	public JButton btnMovieHinzu;
 
 	/**
@@ -56,8 +56,8 @@ public class NewMovieWindow extends JDialog {
 		JLabel lblNewLabel = new JLabel(" Erscheinungsjahr: ");
 		panel_2.add(lblNewLabel, BorderLayout.WEST);
 		
-		comboBox = new JTextField();
-		panel_2.add(comboBox);
+		txtJahr = new JTextField();
+		panel_2.add(txtJahr);
 		
 		JPanel panel_3 = new JPanel();
 		getContentPane().add(panel_3);
@@ -67,8 +67,8 @@ public class NewMovieWindow extends JDialog {
 		panel_3.add(lblGenre, BorderLayout.WEST);
 		
 		String[] genres = {"Action", "Comedy", "Romance", "SiFi", "Fantasy"};
-		comboBox_1 = new JComboBox(genres);
-		panel_3.add(comboBox_1);
+		cbGenre = new JComboBox(genres);
+		panel_3.add(cbGenre);
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel);

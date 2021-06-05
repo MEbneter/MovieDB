@@ -14,6 +14,7 @@ public class Film {
 		this.titel=titel;
 		this.genre=genre;
 		this.erscheinungsjahr=erscheinungsjahr;
+		this.leute = new ArrayList<Person>();
 	}
 	
 	public String getTitel() {

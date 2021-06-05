@@ -59,7 +59,11 @@ public class MovieController {
 	
 	public void setMovieList () {
 		DefaultListModel movieListModel = new DefaultListModel<>();
-		movieListModel.addElement(this.modelz.getElementAt(0).getTitel());
+		
+		for (Film film : this.modelz.getFilme()) {
+			movieListModel.addElement(film.getTitel());
+		}
+		
 		view.movieList.setModel(movieListModel);
 	}
 	
@@ -117,8 +121,29 @@ public class MovieController {
 			/**
 			 * Movie der Liste hinzufügen hoffentlich bald
 			 */
-			else if (button == newMovie.btnMovieHinzu) {
-				newMovie.setVisible(false);
+			else if (button == newMovie.btnMovieHinzu) {	
+				
+				String name = newMovie.txtName.getText();			
+				String jahr = newMovie.txtJahr.getText();
+				String genre = (String)newMovie.cbGenre.getSelectedItem();
+				
+				if (name.length() > 0 && jahr.length() == 4) {
+					DefaultListModel movieListModel = new DefaultListModel<>();
+						try {	
+							modelz.addFilm(new Film(name, genre, Integer.parseInt(jahr)));
+							newMovie.setVisible(false);
+							for (Film film : modelz.getFilme()) {
+								movieListModel.addElement(film.getTitel());
+							}
+							view.movieList.setModel(movieListModel);
+						} catch (Exception e) {
+						// TODO: handle exception
+							JOptionPane.showMessageDialog(view, "Das Jahr muss aus 4 Zahlen bestehen.");
+						}
+					
+				} else {
+						JOptionPane.showMessageDialog(view, "Bitte eingabe überprüfen.");
+				}
 			}
 		}
 	}
@@ -133,9 +158,14 @@ public class MovieController {
 				movieIndex = view.movieList.getSelectedIndex();
 				selectedMovie = modelz.getElementAt(movieIndex);
 				DefaultListModel personListModel = new DefaultListModel<>();
-				for (Person dude : selectedMovie.getLeute()) {
-					String theDude = dude.getVName() + " " + dude.getNName() + " / " + dude.getAufgabe();
-					personListModel.addElement(theDude);
+				try {
+					for (Person dude : selectedMovie.getLeute()) {
+						String theDude = dude.getVName() + " " + dude.getNName() + " / " + dude.getAufgabe();
+						personListModel.addElement(theDude);
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					personListModel.removeAllElements();
 				}
 				view.personList.setModel(personListModel);
 			}

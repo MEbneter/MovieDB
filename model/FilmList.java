@@ -19,6 +19,10 @@ public class FilmList extends AbstractListModel<Film> {
 	public void addFilm(Film film) {
 		filme.add(film);
 	}
+	
+	public List<Film> getFilme() {
+		return this.filme;
+	}
 
 	@Override
 	public Film getElementAt(int stelle) {
