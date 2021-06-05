@@ -228,16 +228,22 @@ public class MovieController {
 			else if (button == view.cbFilterAufgabe) {
 				
 				DefaultListModel personListModel = new DefaultListModel<>();
-				for (Person dude : selectedMovie.getLeute()) {
-					String theDude = dude.getVName() + " " + dude.getNName() + " / " + dude.getAufgabe();
-					System.out.println(view.cbFilterAufgabe.getSelectedItem() + " ?= " + dude.getAufgabe());
-					if (dude.getAufgabe() == view.cbFilterAufgabe.getSelectedItem()) {
-						personListModel.addElement(theDude);
-					} else if (view.cbFilterAufgabe.getSelectedIndex() == 0) {
-						System.out.println(view.cbFilterAufgabe.getSelectedIndex());
-						personListModel.addElement(theDude);
+				try {
+					for (Person dude : selectedMovie.getLeute()) {
+						String theDude = dude.getVName() + " " + dude.getNName() + " / " + dude.getAufgabe();
+								
+						if (dude.getAufgabe() == view.cbFilterAufgabe.getSelectedItem()) {
+							personListModel.addElement(theDude);
+						} else if (view.cbFilterAufgabe.getSelectedIndex() == 0) {
+							personListModel.addElement(theDude);
+						}
+						
 					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					personListModel.removeAllElements();
 				}
+				view.personList.setModel(personListModel);
 			}
 		}
 	}
