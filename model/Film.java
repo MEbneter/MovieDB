@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Film {
+public class Film implements Serializable {
 	
 	private String titel;
 	private String genre; // evtl. auch enum

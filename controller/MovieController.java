@@ -4,7 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -76,6 +82,51 @@ public class MovieController {
 		terror.addLeute(leute);
 		modelz.addFilm(terror);
 	}
+	/*
+	public static void saveMovieList (FilmList filmListe) {
+		String filename = "movieList.ser";
+		// Serialization des Objekts modelz
+		try
+		{
+			//objekte für fileoutput und object output
+			FileOutputStream file = new FileOutputStream(filename);
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			
+			// Hier sollts ins file schreiben
+			//out.writeObject(modelz.getFilme());
+			out.writeObject(modelz);
+			out.close();
+			file.close();		
+			System.out.println("Object wurde serializsiert");
+		}
+		
+		catch(IOException ex)
+		{
+			ex.printStackTrace();
+			System.out.println("IOException ist aufgetretten");
+		}
+	}
+	
+	public static void readMovieList () {
+		try {
+			String filename = "movieList.ser";
+			// objekte für fileinput und objektinput
+			FileInputStream file = new FileInputStream(filename);
+			ObjectInputStream in = new ObjectInputStream(file);
+			// inhalt der file der FilmList hinzufügen
+			Film film = null;	
+			modelz = in.readObject();		
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("IOException ist aufgetretten");
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("ClassNotFoundException ist aufgetretten");
+			e.printStackTrace();
+		}		
+	}
+	*/
 	
 	public class MyActions implements ActionListener {
 
@@ -136,6 +187,7 @@ public class MovieController {
 								movieListModel.addElement(film.getTitel());
 							}
 							view.movieList.setModel(movieListModel);
+							// saveMovieList(modelz);
 						} catch (Exception e) {
 						// TODO: handle exception
 							JOptionPane.showMessageDialog(view, "Das Jahr muss aus 4 Zahlen bestehen.");
