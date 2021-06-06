@@ -20,19 +20,6 @@ public class NewPersonWindow extends JDialog {
 	public JTextField txtVname;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			NewPersonWindow dialog = new NewPersonWindow(null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public NewPersonWindow(JFrame parent) {

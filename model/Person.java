@@ -1,5 +1,9 @@
 package model;
-
+/**
+ * 
+ * @author manue
+ * Speichert Personen mit Name und Aufgabe
+ */
 public class Person {
 	
 	private String vName;
@@ -12,7 +16,10 @@ public class Person {
 		this.nName=nName;
 		this.schauspieler=schauspieler;
 	}
-	
+	/**
+	 * 
+	 * @return Aufgabe als String
+	 */
 	public String getAufgabe () {
 		String aufgabe;
 		if (this.schauspieler) {
@@ -21,7 +28,10 @@ public class Person {
 			return "Regisseur";
 		}
 	}
-	
+	/**
+	 * 
+	 * @return vor und nachname als String
+	 */
 	public String getVName() {
 		return this.vName;
 	}

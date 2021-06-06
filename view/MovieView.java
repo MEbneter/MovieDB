@@ -22,19 +22,14 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 
 public class MovieView extends JFrame {
-
-	private JPanel contentPane;
 	public JList<FilmList> movieList;
 	public JList<Person> personList;
 	public JButton btnAddPerson;
-	private JPanel panel_3;
 	public JLabel lblErscheinungsjahr;
 	public JLabel lblTitel;
 	public JButton btnAddMovie;
 	public JLabel lblGenre;
-	private JLabel lblNewLabel;
 	public JComboBox cbFilterGenre;
-	private JLabel lblFilterByAufgabe;
 	public JComboBox cbFilterAufgabe;
 
 
@@ -44,26 +39,26 @@ public class MovieView extends JFrame {
 	public MovieView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 480);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 2, 0, 0));
+		JPanel mainPanel = new JPanel();
+		mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(mainPanel);
+		mainPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		JPanel leftPanel = new JPanel();
+		mainPanel.add(leftPanel);
+		leftPanel.setLayout(new BorderLayout(0, 0));
 		
 		movieList = new JList<FilmList>();
 		movieList.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		panel_1.add(movieList);
+		leftPanel.add(movieList);
 		
-		panel_3 = new JPanel();
-		panel_1.add(panel_3, BorderLayout.NORTH);
-		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel btnPanel = new JPanel();
+		leftPanel.add(btnPanel, BorderLayout.NORTH);
+		btnPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		btnAddPerson = new JButton("add person");
 		btnAddPerson.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_3.add(btnAddPerson);
+		btnPanel.add(btnAddPerson);
 		
 		btnAddMovie = new JButton("add movie");
 		btnAddMovie.addActionListener(new ActionListener() {
@@ -71,42 +66,42 @@ public class MovieView extends JFrame {
 			}
 		});
 		btnAddMovie.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_3.add(btnAddMovie);
+		btnPanel.add(btnAddMovie);
 		
-		lblNewLabel = new JLabel("Filter by Genre:");
-		panel_3.add(lblNewLabel);
+		JLabel lblFilterByGenre = new JLabel("Filter by Genre:");
+		btnPanel.add(lblFilterByGenre);
 		
 		String[] genres = {"All" ,"Action", "Comedy", "Romance", "SiFi", "Fantasy"};
 		cbFilterGenre = new JComboBox(genres);
-		panel_3.add(cbFilterGenre);
+		btnPanel.add(cbFilterGenre);
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2);
-		panel_2.setLayout(new BorderLayout(0, 0));
+		JPanel rightPanel = new JPanel();
+		mainPanel.add(rightPanel);
+		rightPanel.setLayout(new BorderLayout(0, 0));
 		
 		personList = new JList<Person>();
 		personList.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		panel_2.add(personList, BorderLayout.CENTER);
+		rightPanel.add(personList, BorderLayout.CENTER);
 		
-		JPanel panel = new JPanel();
-		panel_2.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new GridLayout(5, 1, 0, 0));
+		JPanel detailPanel = new JPanel();
+		rightPanel.add(detailPanel, BorderLayout.NORTH);
+		detailPanel.setLayout(new GridLayout(5, 1, 0, 0));
 		
 		lblTitel = new JLabel("Titel: ");
-		panel.add(lblTitel);
+		detailPanel.add(lblTitel);
 		
 		lblErscheinungsjahr = new JLabel("Erscheinungsjahr: ");
-		panel.add(lblErscheinungsjahr);
+		detailPanel.add(lblErscheinungsjahr);
 		
 		lblGenre = new JLabel("Genre: ");
-		panel.add(lblGenre);
+		detailPanel.add(lblGenre);
 		
-		lblFilterByAufgabe = new JLabel("Filter by Aufgabe:");
-		panel.add(lblFilterByAufgabe);
+		JLabel lblFilterByAufgabe = new JLabel("Filter by Aufgabe:");
+		detailPanel.add(lblFilterByAufgabe);
 		
 		String[] aufgaben = {"All", "Schauspieler", "Regisseur"};
 		cbFilterAufgabe = new JComboBox(aufgaben);
-		panel.add(cbFilterAufgabe);
+		detailPanel.add(cbFilterAufgabe);
 	}
 
 }

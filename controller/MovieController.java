@@ -24,9 +24,8 @@ import view.NewPersonWindow;
 
 public class MovieController {
 
-	private FilmList modelz= new FilmList();
-	private ArrayList<Person> leute;
-	private Film terror;
+	private FilmList filmList= new FilmList();
+	
 	private MovieView view;
 	private MyActions btnAction;
 	private MyMouseAction mouseAction;
@@ -35,14 +34,19 @@ public class MovieController {
 	private Film selectedMovie;
 	private int movieIndex;
 	
-	
+	/**
+	 * main
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		MovieController myController = new MovieController();
 		myController.testDaten();
 		myController.setMovieList();
 		myController.run();
 	}
-	
+	/**
+	 * konstruktor
+	 */
 	public MovieController (){
 		view = new MovieView();
 		newMovie = new NewMovieWindow(this.view);
@@ -50,7 +54,9 @@ public class MovieController {
 		btnAction = new MyActions();
 		mouseAction = new MyMouseAction();
 	}
-	
+	/**
+	 * set up fürs GUI
+	 */
 	public void run () {
 		// newMovie addActionListner
 		this.newMovie.btnMovieHinzu.addActionListener(btnAction);
@@ -65,34 +71,39 @@ public class MovieController {
 		this.view.setVisible(true);
 	}
 	
+	/*
+	 * set up fürs GUI movieListe
+	 */
 	public void setMovieList () {
-		DefaultListModel movieListModel = new DefaultListModel<>();
-		
-		for (Film film : this.modelz.getFilme()) {
+		DefaultListModel movieListModel = new DefaultListModel<>();		
+		for (Film film : this.filmList.getFilme()) {
 			movieListModel.addElement(film.getTitel());
-		}
-		
+		}		
 		view.movieList.setModel(movieListModel);
 	}
-	
+	/**
+	 * Testdaten 
+	 */
 	public void testDaten () {
-		
 		Film[] terror = new Film[8];
 		for (int i = 0; i < terror.length; i++) {
-			leute = new ArrayList<Person>();
+			ArrayList<Person> leute = new ArrayList<Person>();
 			leute.add(new Person("Jeff"+ i,"Fahey", true));
 			leute.add(new Person("Bruce"+ i,"Willis", true));
 			leute.add(new Person("Josh"+ i,"Brolin", true));
 			leute.add(new Person("Robert"+ i,"Rodriguez", false));
 			terror[i] = new Film("Planet Terror"+i, "Action", 2007);
 			terror[i].addLeute(leute);
-			modelz.addFilm(terror[i]);
+			filmList.addFilm(terror[i]);
 		}
 	}
+	/**
+	 *  ka, läuft nicht mit dem serialisieren
+	 */
 	/*
 	public static void saveMovieList (FilmList filmListe) {
 		String filename = "movieList.ser";
-		// Serialization des Objekts modelz
+		// Serialization des Objekts filmList
 		try
 		{
 			//objekte für fileoutput und object output
@@ -100,9 +111,9 @@ public class MovieController {
 			ObjectOutputStream out = new ObjectOutputStream(file);
 			
 			// Hier sollts ins file schreiben
-			//out.writeObject(modelz.getFilme());
-			//out.writeObject(modelz);
-			for (Film f : modelz.getFilme()){
+			//out.writeObject(filmList.getFilme());
+			//out.writeObject(filmList);
+			for (Film f : filmList.getFilme()){
 				out.writeObject(f);
 			}
 			out.close();
@@ -125,7 +136,7 @@ public class MovieController {
 			ObjectInputStream in = new ObjectInputStream(file);
 			// inhalt der file der FilmList hinzufügen
 			Film film = null;	
-			modelz = in.readObject();		
+			filmList = in.readObject();		
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("IOException ist aufgetretten");
@@ -155,7 +166,7 @@ public class MovieController {
 			 */
 			else if (button == view.btnAddPerson) {
 				try {
-					newPerson.setTitle(modelz.getElementAt(view.movieList.getSelectedIndex()).getTitel());
+					newPerson.setTitle(filmList.getElementAt(view.movieList.getSelectedIndex()).getTitel());
 					newPerson.setVisible(true);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(view, "Bitte Film zum hinzufügen einer Person auswählen.");
@@ -173,14 +184,14 @@ public class MovieController {
 				}
 				if (vName.length() > 0 && nName.length() > 0) {
 				Person newDude = new Person(vName, nName, aufgabe);
-				modelz.getElementAt(movieIndex).addPerson(newDude);
+				filmList.getElementAt(movieIndex).addPerson(newDude);
 				newPerson.setVisible(false);
 				} else {
 					JOptionPane.showMessageDialog(view, "Bitte alle Felder ausfüllen.");
 				}
 			}
 			/**
-			 * Movie der Liste hinzufügen hoffentlich bald
+			 * Movie der Liste hinzufügen
 			 */
 			else if (button == newMovie.btnMovieHinzu) {	
 				
@@ -191,13 +202,13 @@ public class MovieController {
 				if (name.length() > 0 && jahr.length() == 4) {
 					DefaultListModel movieListModel = new DefaultListModel<>();
 						try {	
-							modelz.addFilm(new Film(name, genre, Integer.parseInt(jahr)));
+							filmList.addFilm(new Film(name, genre, Integer.parseInt(jahr)));
 							newMovie.setVisible(false);
-							for (Film film : modelz.getFilme()) {
+							for (Film film : filmList.getFilme()) {
 								movieListModel.addElement(film.getTitel());
 							}
 							view.movieList.setModel(movieListModel);
-							// saveMovieList(modelz);
+							// saveMovieList(filmList);
 						} catch (Exception e) {
 						// TODO: handle exception
 							JOptionPane.showMessageDialog(view, "Das Jahr muss aus 4 Zahlen bestehen.");
@@ -212,7 +223,7 @@ public class MovieController {
 			 */
 			else if (button == view.cbFilterGenre) {
 				DefaultListModel movieListModel = new DefaultListModel<>();
-					for (Film film : modelz.getFilme()) {		
+					for (Film film : filmList.getFilme()) {		
 						if (film.getGenre() == view.cbFilterGenre.getSelectedItem()) {
 							movieListModel.addElement(film.getTitel());
 						} else if (view.cbFilterGenre.getSelectedIndex() == 0) {
@@ -254,9 +265,13 @@ public class MovieController {
 		public void mouseClicked(MouseEvent hey) {
 			// TODO Auto-generated method stub
 			Object liste = hey.getSource();
+			/**
+			 * Selektierung eines Movie's in der MovieListe
+			 * Personen vom Movie werden in die PersonenListe geladen
+			 */
 			if (liste == view.movieList) {
 				movieIndex = view.movieList.getSelectedIndex();
-				selectedMovie = modelz.getElementAt(movieIndex);
+				selectedMovie = filmList.getElementAt(movieIndex);
 				DefaultListModel personListModel = new DefaultListModel<>();
 				try {
 					for (Person dude : selectedMovie.getLeute()) {
