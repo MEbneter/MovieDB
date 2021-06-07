@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import model.FilmList;
+import model.Film;
 import model.Person;
 
 import javax.swing.JList;
@@ -22,7 +22,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 
 public class MovieView extends JFrame {
-	public JList<FilmList> movieList;
+	public JList<Film> movieList;
 	public JList<Person> personList;
 	public JButton btnAddPerson;
 	public JLabel lblErscheinungsjahr;
@@ -48,7 +48,7 @@ public class MovieView extends JFrame {
 		mainPanel.add(leftPanel);
 		leftPanel.setLayout(new BorderLayout(0, 0));
 		
-		movieList = new JList<FilmList>();
+		movieList = new JList<Film>();
 		movieList.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		leftPanel.add(movieList);
 		

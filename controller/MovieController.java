@@ -10,13 +10,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 import model.Film;
-import model.FilmList;
 import model.Person;
 import view.MovieView;
 import view.NewMovieWindow;
@@ -24,8 +22,7 @@ import view.NewPersonWindow;
 
 public class MovieController {
 
-	private FilmList filmList= new FilmList();
-	
+	private ArrayList<Film> filmList = new ArrayList<Film>();
 	private MovieView view;
 	private MyActions btnAction;
 	private MyMouseAction mouseAction;
@@ -76,7 +73,7 @@ public class MovieController {
 	 */
 	public void setMovieList () {
 		DefaultListModel movieListModel = new DefaultListModel<>();		
-		for (Film film : this.filmList.getFilme()) {
+		for (Film film : this.filmList) {
 			movieListModel.addElement(film.getTitel());
 		}		
 		view.movieList.setModel(movieListModel);
@@ -94,7 +91,7 @@ public class MovieController {
 			leute.add(new Person("Robert"+ i,"Rodriguez", false));
 			terror[i] = new Film("Planet Terror"+i, "Action", 2007);
 			terror[i].addLeute(leute);
-			filmList.addFilm(terror[i]);
+			filmList.add(terror[i]);
 		}
 	}
 	/**
@@ -166,7 +163,7 @@ public class MovieController {
 			 */
 			else if (button == view.btnAddPerson) {
 				try {
-					newPerson.setTitle(filmList.getElementAt(view.movieList.getSelectedIndex()).getTitel());
+					newPerson.setTitle(filmList.get(view.movieList.getSelectedIndex()).getTitel());
 					newPerson.setVisible(true);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(view, "Bitte Film zum hinzufügen einer Person auswählen.");
@@ -184,7 +181,7 @@ public class MovieController {
 				}
 				if (vName.length() > 0 && nName.length() > 0) {
 				Person newDude = new Person(vName, nName, aufgabe);
-				filmList.getElementAt(movieIndex).addPerson(newDude);
+				filmList.get(movieIndex).addPerson(newDude);
 				newPerson.setVisible(false);
 				} else {
 					JOptionPane.showMessageDialog(view, "Bitte alle Felder ausfüllen.");
@@ -202,9 +199,9 @@ public class MovieController {
 				if (name.length() > 0 && jahr.length() == 4) {
 					DefaultListModel movieListModel = new DefaultListModel<>();
 						try {	
-							filmList.addFilm(new Film(name, genre, Integer.parseInt(jahr)));
+							filmList.add(new Film(name, genre, Integer.parseInt(jahr)));
 							newMovie.setVisible(false);
-							for (Film film : filmList.getFilme()) {
+							for (Film film : filmList) {
 								movieListModel.addElement(film.getTitel());
 							}
 							view.movieList.setModel(movieListModel);
@@ -223,13 +220,18 @@ public class MovieController {
 			 */
 			else if (button == view.cbFilterGenre) {
 				DefaultListModel movieListModel = new DefaultListModel<>();
-					for (Film film : filmList.getFilme()) {		
-						if (film.getGenre() == view.cbFilterGenre.getSelectedItem()) {
-							movieListModel.addElement(film.getTitel());
-						} else if (view.cbFilterGenre.getSelectedIndex() == 0) {
-							movieListModel.addElement(film.getTitel());
+				try {	
+					for (Film film : filmList) {		
+							if (film.getGenre() == view.cbFilterGenre.getSelectedItem()) {
+								movieListModel.addElement(film.getTitel());
+							} else if (view.cbFilterGenre.getSelectedIndex() == 0) {
+								movieListModel.addElement(film.getTitel());
+							}
 						}
-					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				movieListModel.removeAllElements();
+				}
 				view.movieList.setModel(movieListModel);
 					
 			}
@@ -271,7 +273,7 @@ public class MovieController {
 			 */
 			if (liste == view.movieList) {
 				movieIndex = view.movieList.getSelectedIndex();
-				selectedMovie = filmList.getElementAt(movieIndex);
+				selectedMovie = filmList.get(movieIndex);
 				DefaultListModel personListModel = new DefaultListModel<>();
 				try {
 					for (Person dude : selectedMovie.getLeute()) {
