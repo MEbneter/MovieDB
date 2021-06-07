@@ -9,32 +9,37 @@ import model.Film;
 import model.Person;
 
 import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.border.CompoundBorder;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-
+/**
+ * 
+ * @author manue
+ *
+ */
 public class MovieView extends JFrame {
-	public JList<Film> movieList;
-	public JList<Person> personList;
-	public JButton btnAddPerson;
-	public JLabel lblErscheinungsjahr;
-	public JLabel lblTitel;
-	public JButton btnAddMovie;
-	public JLabel lblGenre;
-	public JComboBox cbFilterGenre;
-	public JComboBox cbFilterAufgabe;
-
+	private JList<Film> movieList;
+	private JList<Person> personList;
+	private JButton btnAddPerson;
+	private JLabel lblErscheinungsjahr;
+	private JLabel lblTitel;
+	private JButton btnAddMovie;
+	private JLabel lblGenre;
+	private JComboBox cbFilterGenre;
+	private JComboBox cbFilterAufgabe;
 
 	/**
-	 * Create the frame.
+	 * Create the frame. Hauptfenster
 	 */
 	public MovieView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,5 +108,126 @@ public class MovieView extends JFrame {
 		cbFilterAufgabe = new JComboBox(aufgaben);
 		detailPanel.add(cbFilterAufgabe);
 	}
-
+	/**
+	 * getter
+	 */
+	/**
+	 * combo box FilterGenre
+	 * @returns für Object ComboBox , Object Selected Item, int Selected Index
+	 */
+	public Object getCbFilterGenre () {
+		return cbFilterGenre;
+	}
+	public Object getFilterGenreItem () {
+		return cbFilterGenre.getSelectedItem();
+	}
+	public int getFilterGenreIndex () {
+		return cbFilterGenre.getSelectedIndex();
+	}
+	/**
+	 * combo box FilterAufgabe
+	 * @returns für Object ComboBox , Object Selected Item, int selected Index
+	 */
+	public Object getCbFilterAufgabe () {
+		return cbFilterAufgabe;
+	}
+	public Object getFilterAufgabeItem () {
+		return cbFilterAufgabe.getSelectedItem();
+	}
+	public int getFilterAufgabeIndex () {
+		return cbFilterAufgabe.getSelectedIndex();
+	}
+	/**
+	 * Button Add Person
+	 * @return Object JButton
+	 */
+	public Object getButtonAddPerson () {
+		return btnAddPerson;
+	}
+	/**
+	 * Button Add Movie
+	 * @return Object JButton
+	 */
+	public Object getButtonAddMovie () {
+		return btnAddMovie;
+	}
+	/**
+	 *  JList Movie Liste
+	 * @return Object JList, int selected Index
+	 */
+	public Object getMovieList () {
+		return movieList;
+	}
+	public int getMovieListIndex() {
+		return movieList.getSelectedIndex();
+	}
+	/**
+	 * setter
+	 */
+	/**
+	 * Action Listner für FilterGenre hinzufügen
+	 * @param action : ActionListner
+	 */
+	public void setActionFilterGenre(ActionListener action) {
+		this.cbFilterGenre.addActionListener(action);
+	}
+	/**
+	 * Action Listner für FilterAufgabe hinzufügen
+	 * @param action : ActionListner
+	 */
+	public void setActionFilterAufgabe(ActionListener action) {
+		this.cbFilterAufgabe.addActionListener(action);
+	}
+	/**
+	 * Action Listner für add Person hinzufügen
+	 * @param action : ActionListner
+	 */
+	public void setActionAddPerson(ActionListener action) {
+		this.btnAddPerson.addActionListener(action);
+	}
+	/**
+	 * Action Listner für add Movie hinzufügen
+	 * @param action : ActionListner
+	 */
+	public void setActionAddMovie(ActionListener action) {
+		this.btnAddMovie.addActionListener(action);
+	}
+	/**
+	 * Action Listner für Movie List hinzufügen und Model der Liste setzen.
+	 * @param's action : MouseListener , list : DefaultListModel,
+	 */
+	public void setActionMovieList(MouseListener action) {
+		this.movieList.addMouseListener(action);
+	}
+	public void setMovieListModel (DefaultListModel list) {
+		movieList.setModel(list);
+	}
+	/**
+	 * Model der Person List setzen.
+	 * @param list : DefaultListModel
+	 */
+	public void setPersonListModel (DefaultListModel list) {
+		personList.setModel(list);
+	}
+	/**
+	 * Movie-Titel setzen
+	 * @param str : String
+	 */
+	public void setTextTitel (String str) {
+		lblTitel.setText("Titel: "+str);
+	}
+	/**
+	 * Movie-Genre setzen
+	 * @param str : String
+	 */
+	public void setTextGenre (String str) {
+		lblTitel.setText("Genre: "+str);
+	}
+	/**
+	 * Movie-Erscheinungsjahr setzen
+	 * @param i : String
+	 */
+	public void setTextErscheinungsjahr (int i) {
+		lblTitel.setText("Erscheinungsjahr: "+i);
+	}
 }

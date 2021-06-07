@@ -60,11 +60,11 @@ public class MovieController {
 		// newPerson addActionListner
 		this.newPerson.btnPersonHinzu.addActionListener(btnAction);
 		// view mit addActionListner
-		this.view.cbFilterGenre.addActionListener(btnAction);
-		this.view.cbFilterAufgabe.addActionListener(btnAction);
-		this.view.btnAddPerson.addActionListener(btnAction);
-		this.view.btnAddMovie.addActionListener(btnAction);
-		this.view.movieList.addMouseListener(mouseAction);
+		this.view.setActionFilterGenre(btnAction);
+		this.view.setActionFilterAufgabe(btnAction);
+		this.view.setActionAddPerson(btnAction);
+		this.view.setActionAddMovie(btnAction);
+		this.view.setActionMovieList(mouseAction);
 		this.view.setVisible(true);
 	}
 	
@@ -76,7 +76,7 @@ public class MovieController {
 		for (Film film : this.filmList) {
 			movieListModel.addElement(film.getTitel());
 		}		
-		view.movieList.setModel(movieListModel);
+		view.setMovieListModel(movieListModel);
 	}
 	/**
 	 * Testdaten 
@@ -155,15 +155,15 @@ public class MovieController {
 			/**
 			 * Fenster addMovie öffnen
 			 */
-			if (button == view.btnAddMovie) {
+			if (button == view.getButtonAddMovie()) {
 				newMovie.setVisible(true);
 			}
 			/**
 			 * Fenster addPerson öffnen
 			 */
-			else if (button == view.btnAddPerson) {
+			else if (button == view.getButtonAddPerson()) {
 				try {
-					newPerson.setTitle(filmList.get(view.movieList.getSelectedIndex()).getTitel());
+					newPerson.setTitle(filmList.get(view.getMovieListIndex()).getTitel());
 					newPerson.setVisible(true);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(view, "Bitte Film zum hinzufügen einer Person auswählen.");
@@ -176,6 +176,7 @@ public class MovieController {
 				String vName= newPerson.txtVname.getText();
 				String nName= newPerson.txtNname.getText();
 				Boolean aufgabe = true;
+				
 				if (newPerson.rdbtnRegisseur.isSelected()) {
 					aufgabe = false;
 				}
@@ -191,7 +192,6 @@ public class MovieController {
 			 * Movie der Liste hinzufügen
 			 */
 			else if (button == newMovie.btnMovieHinzu) {	
-				
 				String name = newMovie.txtName.getText();			
 				String jahr = newMovie.txtJahr.getText();
 				String genre = (String)newMovie.cbGenre.getSelectedItem();
@@ -204,7 +204,7 @@ public class MovieController {
 							for (Film film : filmList) {
 								movieListModel.addElement(film.getTitel());
 							}
-							view.movieList.setModel(movieListModel);
+							view.setMovieListModel(movieListModel);
 							// saveMovieList(filmList);
 						} catch (Exception e) {
 						// TODO: handle exception
@@ -218,13 +218,13 @@ public class MovieController {
 			/**
 			 * Filter für Genre
 			 */
-			else if (button == view.cbFilterGenre) {
+			else if (button == view.getCbFilterGenre()) {
 				DefaultListModel movieListModel = new DefaultListModel<>();
 				try {	
 					for (Film film : filmList) {		
-							if (film.getGenre() == view.cbFilterGenre.getSelectedItem()) {
+							if (film.getGenre() == view.getFilterGenreItem()) {
 								movieListModel.addElement(film.getTitel());
-							} else if (view.cbFilterGenre.getSelectedIndex() == 0) {
+							} else if (view.getFilterGenreIndex() == 0) {
 								movieListModel.addElement(film.getTitel());
 							}
 						}
@@ -232,22 +232,22 @@ public class MovieController {
 					// TODO: handle exception
 				movieListModel.removeAllElements();
 				}
-				view.movieList.setModel(movieListModel);
+				view.setMovieListModel(movieListModel);
 					
 			}
 			/**
 			 * Filter für Aufgabe
 			 */
-			else if (button == view.cbFilterAufgabe) {
+			else if (button == view.getCbFilterAufgabe()) {
 				
 				DefaultListModel personListModel = new DefaultListModel<>();
 				try {
 					for (Person dude : selectedMovie.getLeute()) {
 						String theDude = dude.getVName() + " " + dude.getNName() + " / " + dude.getAufgabe();
 								
-						if (dude.getAufgabe() == view.cbFilterAufgabe.getSelectedItem()) {
+						if (dude.getAufgabe() == view.getFilterAufgabeItem()) {
 							personListModel.addElement(theDude);
-						} else if (view.cbFilterAufgabe.getSelectedIndex() == 0) {
+						} else if (view.getFilterAufgabeIndex() == 0) {
 							personListModel.addElement(theDude);
 						}
 						
@@ -256,7 +256,7 @@ public class MovieController {
 					// TODO: handle exception
 					personListModel.removeAllElements();
 				}
-				view.personList.setModel(personListModel);
+				view.setPersonListModel(personListModel);
 			}
 		}
 	}
@@ -271,8 +271,8 @@ public class MovieController {
 			 * Selektierung eines Movie's in der MovieListe
 			 * Personen vom Movie werden in die PersonenListe geladen
 			 */
-			if (liste == view.movieList) {
-				movieIndex = view.movieList.getSelectedIndex();
+			if (liste == view.getMovieList()) {
+				movieIndex = view.getMovieListIndex();
 				selectedMovie = filmList.get(movieIndex);
 				DefaultListModel personListModel = new DefaultListModel<>();
 				try {
@@ -284,10 +284,10 @@ public class MovieController {
 					// TODO: handle exception
 					personListModel.removeAllElements();
 				}
-				view.lblTitel.setText("Titel: " + selectedMovie.getTitel());
-				view.lblGenre.setText("Genre: " + selectedMovie.getGenre());
-				view.lblErscheinungsjahr.setText( "Erscheinungsjahr: " + selectedMovie.getErscheinungsjahr());
-				view.personList.setModel(personListModel);
+				view.setTextTitel(selectedMovie.getTitel());
+				view.setTextGenre(selectedMovie.getGenre());
+				view.setTextErscheinungsjahr(selectedMovie.getErscheinungsjahr());
+				view.setPersonListModel(personListModel);
 			}
 		}
 
