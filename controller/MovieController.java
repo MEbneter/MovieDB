@@ -29,32 +29,36 @@ public class MovieController {
 	private NewMovieWindow newMovie;
 	private NewPersonWindow newPerson;
 	private Film selectedMovie;
-	private int movieIndex;
-	
 	/**
 	 * main
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		MovieController myController = new MovieController();
-		myController.testDaten();
-		myController.setMovieList();
 		myController.run();
 	}
 	/**
 	 * konstruktor
 	 */
 	public MovieController (){
-		view = new MovieView();
-		newMovie = new NewMovieWindow(this.view);
-		newPerson = new NewPersonWindow(this.view);
-		btnAction = new MyActions();
-		mouseAction = new MyMouseAction();
+		this.view = new MovieView();
+		this.newMovie = new NewMovieWindow(this.view);
+		this.newPerson = new NewPersonWindow(this.view);
+		this.btnAction = new MyActions();
+		this.mouseAction = new MyMouseAction();
+		this.filmList = readMovieList();
+		for (Film film : filmList) {
+			System.out.println("Titel: " + film.getTitel());
+			System.out.println("Genre: " + film.getGenre());
+			System.out.println("Jahr: " + film.getErscheinungsjahr());
+		}
 	}
 	/**
-	 * set up fürs GUI
+	 * set up fürs Programm
 	 */
 	public void run () {
+		// testDaten();
+		setMovieList();
 		// newMovie addActionListner
 		this.newMovie.setActionHinzuButton(btnAction);
 		// newPerson addActionListner
@@ -76,7 +80,7 @@ public class MovieController {
 		for (Film film : this.filmList) {
 			movieListModel.addElement(film.getTitel());
 		}		
-		view.setMovieListModel(movieListModel);
+		this.view.setMovieListModel(movieListModel);
 	}
 	/**
 	 * Testdaten 
@@ -93,6 +97,10 @@ public class MovieController {
 			terror[i].addLeute(leute);
 			filmList.add(terror[i]);
 		}
+	}
+	
+	public ArrayList<Film> getFilmList () {
+		return filmList;
 	}
 	
 	public Film getSelectedMovie (Object selectedFilm) {
@@ -118,8 +126,8 @@ public class MovieController {
 	/**
 	 *  ka, läuft nicht mit dem serialisieren
 	 */
-	/*
-	public static void saveMovieList (FilmList filmListe) {
+	
+	public static void saveMovieList (ArrayList<Film> filmListe) {
 		String filename = "movieList.ser";
 		// Serialization des Objekts filmList
 		try
@@ -131,7 +139,7 @@ public class MovieController {
 			// Hier sollts ins file schreiben
 			//out.writeObject(filmList.getFilme());
 			//out.writeObject(filmList);
-			for (Film f : filmList.getFilme()){
+			for (Film f : filmListe){
 				out.writeObject(f);
 			}
 			out.close();
@@ -146,7 +154,8 @@ public class MovieController {
 		}
 	}
 	
-	public static void readMovieList () {
+	public static ArrayList<Film> readMovieList () {
+		ArrayList<Film> tMovieList = new ArrayList<Film>();
 		try {
 			String filename = "movieList.ser";
 			// objekte für fileinput und objektinput
@@ -154,7 +163,9 @@ public class MovieController {
 			ObjectInputStream in = new ObjectInputStream(file);
 			// inhalt der file der FilmList hinzufügen
 			Film film = null;	
-			filmList = in.readObject();		
+			while ((film = (Film) in.readObject()) != null) {
+				tMovieList.add(film);
+			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("IOException ist aufgetretten");
@@ -163,9 +174,10 @@ public class MovieController {
 			// TODO Auto-generated catch block
 			System.out.println("ClassNotFoundException ist aufgetretten");
 			e.printStackTrace();
-		}		
+		}
+		return tMovieList;
 	}
-	*/
+	
 	
 	public class MyActions implements ActionListener {
 
@@ -204,6 +216,7 @@ public class MovieController {
 				if (vName.length() > 0 && nName.length() > 0) {
 				Person newDude = new Person(vName, nName, aufgabe);
 				filmList.get(getSelectedMovieIndex(view.getMovieListItem())).addPerson(newDude);
+				saveMovieList(filmList);
 				newPerson.setVisible(false);
 				} else {
 					JOptionPane.showMessageDialog(view, "Bitte alle Felder ausfüllen.");
@@ -226,7 +239,7 @@ public class MovieController {
 								movieListModel.addElement(film.getTitel());
 							}
 							view.setMovieListModel(movieListModel);
-							// saveMovieList(filmList);
+							saveMovieList(filmList);
 						} catch (Exception e) {
 						// TODO: handle exception
 							JOptionPane.showMessageDialog(view, "Das Jahr muss aus 4 Zahlen bestehen.");

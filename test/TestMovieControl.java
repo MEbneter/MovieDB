@@ -4,16 +4,15 @@
 package test;
 
 import static org.junit.Assert.*;
-// import org.junit.BeforeClass;
-// https://junit.org/junit4/javadoc/4.13/org/junit/package-tree.html 
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import controller.MovieController;
-import view.MovieView;
-import view.NewMovieWindow;
-import view.NewPersonWindow;
+import model.Film;
+
 import static org.mockito.Mockito.*;
+
+import javax.swing.DefaultListModel;
 
 /**
  * @author manuel
@@ -25,38 +24,33 @@ public class TestMovieControl {
 	// der zu testende controller - System under test
 	MovieController mControl;
 	// die benötigten Interface-Klassen	- Dependent on component
-	NewPersonWindow personWindow;
-	NewMovieWindow movieWindow;
-	MovieView mainView;
+	Film film;
+	DefaultListModel<String> filmListModel = new DefaultListModel<String>();
+	String filmTitel;
 
-	
+	// getestet wird setMovieList, getSelectedMovie, getSelectedMovieIndex...
 	@Test
 	public void testRunMethod() {
 		// Konstruktoraufrug mit mock() methode der Interface-Klassen - Abhängigkeit des controller erstellen
-		mainView = Mockito.mock(MovieView.class);
+		film = Mockito.mock(Film.class);
 	
 		// Konstruktoraufruf
 		mControl = new MovieController();
-		// so ne art main methode ... glaube ich
-		mControl.run();
-		// zeugs aus der schule , platzhalter..
-		//assertEquals( "AC should be off initially", 0, sutIotControl.getAcForce());
-		//assertFalse( "Alarm should be off initalially", sutIotControl.isAlarmState());
-		// beim temperatur aufruf (when) gibt er 25 grad zurück (then)
+		// Setup für den Test
+		film = mControl.getFilmList().get(0);
+		filmListModel.addElement(filmTitel);
+		filmTitel = film.getTitel();
 		/**
-		 * If you specify more than one value, they are returned in the order of specification, 
-		 * until the last one is used. Afterwards the last specified value is returned.
-		 *
-		when(tempSensorMock.getTemperature()).thenReturn(25.0);
-		sutIotControl.run();
-		assertEquals( "AC should still be off", 0, sutIotControl.getAcForce());
-		assertFalse( "Alarm should be off now", sutIotControl.isAlarmState());
+		 * test der getSelectedMovie Methode
+		 * Funktioniert nicht.
+		 */
+		assertEquals(filmTitel, mControl.getSelectedMovie(filmListModel.get(0)));
+		/**
+		 * test der getSelectedMovieIndex Methode
+		 * Funktioniert nicht.
+		 */
+		assertEquals(0, mControl.getSelectedMovieIndex(filmListModel.get(0)));
 		
-		when(tempSensorMock.getTemperature()).thenReturn(IotControl.ACTHRESHOLD+3);
-		sutIotControl.run();
-		assertEquals( "AC should be running now", IotControl.ACTHRESHOLD+3, sutIotControl.getAcForce(), 0);
-		assertFalse( "Alarm should be off now", sutIotControl.isAlarmState());
-	*/
 	}
 
 }
