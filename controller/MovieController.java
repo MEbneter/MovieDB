@@ -94,6 +94,27 @@ public class MovieController {
 			filmList.add(terror[i]);
 		}
 	}
+	
+	public Film getSelectedMovie (Object selectedFilm) {
+		for (Film film : this.filmList) {
+			if ((String)selectedFilm == film.getTitel()) {
+				this.selectedMovie = film;
+			}
+		}
+		return this.selectedMovie;
+	}
+	
+	public int getSelectedMovieIndex (Object selectedFilm) {
+		int index = 0;
+		for (int i = 0; i < filmList.size(); i++) {
+			Film film = filmList.get(i);
+			if ((String)selectedFilm == film.getTitel()) {
+				index = i;
+				break;
+			}
+		}
+		return index;
+	}
 	/**
 	 *  ka, läuft nicht mit dem serialisieren
 	 */
@@ -163,7 +184,7 @@ public class MovieController {
 			 */
 			else if (button == view.getButtonAddPerson()) {
 				try {
-					newPerson.setTitle(filmList.get(view.getMovieListIndex()).getTitel());
+					newPerson.setTitle(getSelectedMovie(view.getMovieListItem()).getTitel());
 					newPerson.setVisible(true);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(view, "Bitte Film zum hinzufügen einer Person auswählen.");
@@ -182,7 +203,7 @@ public class MovieController {
 				}
 				if (vName.length() > 0 && nName.length() > 0) {
 				Person newDude = new Person(vName, nName, aufgabe);
-				filmList.get(movieIndex).addPerson(newDude);
+				filmList.get(getSelectedMovieIndex(view.getMovieListItem())).addPerson(newDude);
 				newPerson.setVisible(false);
 				} else {
 					JOptionPane.showMessageDialog(view, "Bitte alle Felder ausfüllen.");
@@ -272,8 +293,8 @@ public class MovieController {
 			 * Personen vom Movie werden in die PersonenListe geladen
 			 */
 			if (liste == view.getMovieList()) {
-				movieIndex = view.getMovieListIndex();
-				selectedMovie = filmList.get(movieIndex);
+				selectedMovie = getSelectedMovie(view.getMovieListItem());
+				
 				DefaultListModel personListModel = new DefaultListModel<>();
 				try {
 					for (Person dude : selectedMovie.getLeute()) {

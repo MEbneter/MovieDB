@@ -158,8 +158,8 @@ public class MovieView extends JFrame {
 	public Object getMovieList () {
 		return movieList;
 	}
-	public int getMovieListIndex() {
-		return movieList.getSelectedIndex();
+	public Object getMovieListItem() {
+		return movieList.getSelectedValue();
 	}
 	/**
 	 * setter
