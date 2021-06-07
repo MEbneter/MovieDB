@@ -1,10 +1,13 @@
 package model;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author manue
  * Speichert Personen mit Name und Aufgabe
  */
-public class Person {
+public class Person implements Serializable {
 	
 	private String vName;
 	private String nName;

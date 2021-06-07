@@ -56,9 +56,9 @@ public class MovieController {
 	 */
 	public void run () {
 		// newMovie addActionListner
-		this.newMovie.setActionMovieHinzu(btnAction);
+		this.newMovie.setActionHinzuButton(btnAction);
 		// newPerson addActionListner
-		this.newPerson.setActionPersonHinzu(btnAction);
+		this.newPerson.setActionHinzuButton(btnAction);
 		// view mit addActionListner
 		this.view.setActionFilterGenre(btnAction);
 		this.view.setActionFilterAufgabe(btnAction);

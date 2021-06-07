@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
 
-public class NewPersonWindow extends JDialog {
+public class NewPersonWindow extends AddWindow {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton rdbtnRegisseur;
 	private JRadioButton rdbtnSchauspieler;
@@ -111,7 +111,8 @@ public class NewPersonWindow extends JDialog {
 	 * adds Action zum hinzufügen Button 
 	 * @param action
 	 */
-	public void setActionPersonHinzu (ActionListener action) {
+	@Override
+	public void setActionHinzuButton(ActionListener action) {
 		btnPersonHinzu.addActionListener(action);
 	}
 }

@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
 
-public class NewMovieWindow extends JDialog {
+public class NewMovieWindow extends AddWindow {
 	private JTextField txtName;
 	private JTextField txtJahr;
 	private JComboBox cbGenre;
@@ -108,7 +108,8 @@ public class NewMovieWindow extends JDialog {
 	 * adds Action zu hinzufügen butten
 	 * @param action : ActionListener
 	 */
-	public void setActionMovieHinzu (ActionListener action) {
+	@Override
+	public void setActionHinzuButton (ActionListener action) {
 		btnMovieHinzu.addActionListener(action);
 	}
 }
