@@ -3,6 +3,8 @@ package view;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -11,10 +13,10 @@ import javax.swing.JComboBox;
 import java.awt.BorderLayout;
 
 public class NewMovieWindow extends JDialog {
-	public JTextField txtName;
-	public JTextField txtJahr;
-	public JComboBox cbGenre;
-	public JButton btnMovieHinzu;
+	private JTextField txtName;
+	private JTextField txtJahr;
+	private JComboBox cbGenre;
+	private JButton btnMovieHinzu;
 
 	/**
 	 * Create the dialog.
@@ -68,4 +70,45 @@ public class NewMovieWindow extends JDialog {
 	private void initApp() {
 	}
 
+	/**
+	 * getter
+	 */
+	/**
+	 * Movie hinzufügen 
+	 * @return Object JButton
+	 */
+	public Object getButtonMovieHinzu () {
+		return btnMovieHinzu;
+	}
+	/**
+	 * Movie Name
+	 * @return name : String
+	 */
+	public String getName () {
+		return txtName.getText();
+	}
+	/**
+	 * Escheinungsjahr
+	 * @return jahr : String
+	 */
+	public String getJahr () {
+		return txtJahr.getText();
+	}
+	/**
+	 * Gewähltes Genre
+	 * @return genre : Object
+	 */
+	public Object getGenre () {
+		return cbGenre.getSelectedItem();
+	}
+	/**
+	 * setter
+	 */
+	/**
+	 * adds Action zu hinzufügen butten
+	 * @param action : ActionListener
+	 */
+	public void setActionMovieHinzu (ActionListener action) {
+		btnMovieHinzu.addActionListener(action);
+	}
 }

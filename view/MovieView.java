@@ -221,13 +221,13 @@ public class MovieView extends JFrame {
 	 * @param str : String
 	 */
 	public void setTextGenre (String str) {
-		lblTitel.setText("Genre: "+str);
+		lblGenre.setText("Genre: "+str);
 	}
 	/**
 	 * Movie-Erscheinungsjahr setzen
 	 * @param i : String
 	 */
 	public void setTextErscheinungsjahr (int i) {
-		lblTitel.setText("Erscheinungsjahr: "+i);
+		lblErscheinungsjahr.setText("Erscheinungsjahr: "+i);
 	}
 }

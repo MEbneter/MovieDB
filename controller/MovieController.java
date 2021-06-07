@@ -56,7 +56,7 @@ public class MovieController {
 	 */
 	public void run () {
 		// newMovie addActionListner
-		this.newMovie.btnMovieHinzu.addActionListener(btnAction);
+		this.newMovie.setActionMovieHinzu(btnAction);
 		// newPerson addActionListner
 		this.newPerson.btnPersonHinzu.addActionListener(btnAction);
 		// view mit addActionListner
@@ -191,10 +191,10 @@ public class MovieController {
 			/**
 			 * Movie der Liste hinzufügen
 			 */
-			else if (button == newMovie.btnMovieHinzu) {	
-				String name = newMovie.txtName.getText();			
-				String jahr = newMovie.txtJahr.getText();
-				String genre = (String)newMovie.cbGenre.getSelectedItem();
+			else if (button == newMovie.getButtonMovieHinzu()) {	
+				String name = newMovie.getName();			
+				String jahr = newMovie.getJahr();
+				String genre = (String)newMovie.getGenre();
 				
 				if (name.length() > 0 && jahr.length() == 4) {
 					DefaultListModel movieListModel = new DefaultListModel<>();
