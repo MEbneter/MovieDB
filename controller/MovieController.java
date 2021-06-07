@@ -58,7 +58,7 @@ public class MovieController {
 		// newMovie addActionListner
 		this.newMovie.setActionMovieHinzu(btnAction);
 		// newPerson addActionListner
-		this.newPerson.btnPersonHinzu.addActionListener(btnAction);
+		this.newPerson.setActionPersonHinzu(btnAction);
 		// view mit addActionListner
 		this.view.setActionFilterGenre(btnAction);
 		this.view.setActionFilterAufgabe(btnAction);
@@ -172,12 +172,12 @@ public class MovieController {
 			/**
 			 * person dem Film hinzufügen
 			 */
-			else if (button == newPerson.btnPersonHinzu) {
-				String vName= newPerson.txtVname.getText();
-				String nName= newPerson.txtNname.getText();
-				Boolean aufgabe = true;
+			else if (button == newPerson.getButtonPersonHinzu()) {
+				String vName= newPerson.getVname();
+				String nName= newPerson.getNname();
+				boolean aufgabe = true;
 				
-				if (newPerson.rdbtnRegisseur.isSelected()) {
+				if (newPerson.isRegisseur()) {
 					aufgabe = false;
 				}
 				if (vName.length() > 0 && nName.length() > 0) {

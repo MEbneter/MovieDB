@@ -8,16 +8,18 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
 
 public class NewPersonWindow extends JDialog {
-	public final ButtonGroup buttonGroup = new ButtonGroup();
-	public JRadioButton rdbtnRegisseur;
-	public JRadioButton rdbtnSchauspieler;
-	public JButton btnPersonHinzu;
-	public JTextField txtNname;
-	public JTextField txtVname;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JRadioButton rdbtnRegisseur;
+	private JRadioButton rdbtnSchauspieler;
+	private JButton btnPersonHinzu;
+	private JTextField txtNname;
+	private JTextField txtVname;
 
 	/**
 	 * Create the dialog.
@@ -71,5 +73,53 @@ public class NewPersonWindow extends JDialog {
 	}
 	private void initApp() {
 	}
-
+	/**
+	 * getter
+	 */
+	/**
+	 * Vorname
+	 * @return vorname : String
+	 */
+	public String getVname () {
+		return txtVname.getText();
+	}
+	/**
+	 * Nachname
+	 * @return nachname : String
+	 */
+	public String getNname () {
+		return txtNname.getText();
+	}
+	/**
+	 * ist er Regisseur?
+	 * @return aufgabe : boolean
+	 */
+	public boolean isRegisseur () {
+		return rdbtnRegisseur.isSelected();
+	}
+	/**
+	 * Button Person hinzufügen
+	 * @return JButton : Object
+	 */
+	public Object getButtonPersonHinzu () {
+		return btnPersonHinzu;
+	}
+	/**
+	 * setter
+	 */
+	/**
+	 * adds Action zum hinzufügen Button 
+	 * @param action
+	 */
+	public void setActionPersonHinzu (ActionListener action) {
+		btnPersonHinzu.addActionListener(action);
+	}
 }
+
+
+
+
+
+
+
+
