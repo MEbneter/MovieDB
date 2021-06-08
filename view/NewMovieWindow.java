@@ -1,6 +1,5 @@
 package view;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -11,7 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
-
+/**
+ * 
+ * @author manue
+ *
+ */
 public class NewMovieWindow extends AddWindow {
 	private JTextField txtName;
 	private JTextField txtJahr;

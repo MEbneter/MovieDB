@@ -37,7 +37,7 @@ public class TestMovieControl {
 		// Konstruktoraufruf
 		mControl = new MovieController();
 		// Setup für den Test
-		film = mControl.getFilmList().get(0);
+		// film = mControl.getFilmList().get(0);
 		filmListModel.addElement(filmTitel);
 		filmTitel = film.getTitel();
 		/**

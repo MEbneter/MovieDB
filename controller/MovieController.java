@@ -14,7 +14,11 @@ import model.Person;
 import view.MovieView;
 import view.NewMovieWindow;
 import view.NewPersonWindow;
-
+/**
+ * 
+ * @author manue
+ *
+ */
 public class MovieController {
 
 	private ArrayList<Film> filmList = new ArrayList<Film>();
@@ -95,11 +99,11 @@ public class MovieController {
 			filmList.add(terror[i]);
 		}
 	}
-	
-	public ArrayList<Film> getFilmList () {
-		return filmList;
-	}
-	
+	/**
+	 * 
+	 * @param selectedFilm
+	 * @return selectedMovie : Object
+	 */
 	public Film getSelectedMovie (Object selectedFilm) {
 		for (Film film : this.filmList) {
 			if ((String)selectedFilm == film.getTitel()) {
@@ -108,7 +112,11 @@ public class MovieController {
 		}
 		return this.selectedMovie;
 	}
-	
+	/**
+	 * 
+	 * @param selectedFilm
+	 * @return index : int
+	 */
 	public int getSelectedMovieIndex (Object selectedFilm) {
 		int index = 0;
 		for (int i = 0; i < filmList.size(); i++) {
@@ -120,7 +128,11 @@ public class MovieController {
 		}
 		return index;
 	}
-	
+	/**
+	 * Action Listener
+	 * @author manue
+	 *
+	 */
 	public class MyActions implements ActionListener {
 
 		@Override

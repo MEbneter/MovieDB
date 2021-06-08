@@ -11,7 +11,10 @@ import model.Film;
 
 public class FileController {
 
-	
+	/**
+	 * schreibt eine ArrayList<Film> in ein File
+	 * @param filmListe
+	 */
 	public static void saveMovieList (ArrayList<Film> filmListe) {
 		String filename = "movieList.ser";
 		// Serialization des Objekts filmList
@@ -36,7 +39,10 @@ public class FileController {
 			System.out.println("IOException ist aufgetretten");
 		}
 	}
-	
+	/**
+	 * liest die ArrayList<Film> aus dem File
+	 * @return tMovieList : ArrayList<Film>
+	 */
 	public static ArrayList<Film> readMovieList () {
 		ArrayList<Film> tMovieList = new ArrayList<Film>();
 		try {

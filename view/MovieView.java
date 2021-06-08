@@ -18,8 +18,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
-import javax.swing.border.CompoundBorder;
-import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 /**

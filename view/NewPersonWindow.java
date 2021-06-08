@@ -1,6 +1,5 @@
 package view;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -12,7 +11,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
-
+/**
+ * 
+ * @author manue
+ *
+ */
 public class NewPersonWindow extends AddWindow {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton rdbtnRegisseur;

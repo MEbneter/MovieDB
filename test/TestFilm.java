@@ -8,9 +8,15 @@ import org.junit.Test;
 
 import model.Film;
 import model.Person;
-
+/**
+ * Test für die Klasse Film
+ * @author manue
+ *
+ */
 public class TestFilm {
-
+	/**
+	 * Test getter Titel
+	 */
 	@Test
 	public void testGetTitel() {
 		ArrayList<Person> leute = new ArrayList<Person>();
@@ -21,7 +27,9 @@ public class TestFilm {
 		planetTerror.addLeute(leute);
 		assertEquals("Planet Terror", planetTerror.getTitel());
 	}
-	
+	/**
+	 * test getter Genre
+	 */
 	@Test
 	public void testGetGenre() {
 		ArrayList<Person> leute = new ArrayList<Person>();
@@ -32,7 +40,9 @@ public class TestFilm {
 		planetTerror.addLeute(leute);
 		assertEquals("Action", planetTerror.getGenre());
 	}
-	
+	/**
+	 * test getter Leute
+	 */
 	@Test
 	public void testGetLeute() {
 		ArrayList<Person> leute = new ArrayList<Person>();
@@ -42,9 +52,10 @@ public class TestFilm {
 		Film planetTerror = new Film("Planet Terror", "Action", 2007);
 		planetTerror.addLeute(leute);
 		assertEquals(leute, planetTerror.getLeute());
-		// assertArrayEquals(leute[i],planetTerror.getLeute()[i]);
 	}
-	
+	/**
+	 * test getter Erscheinungsjahr
+	 */
 	@Test
 	public void testGetErscheinungsjahr() {
 		ArrayList<Person> leute = new ArrayList<Person>();
@@ -55,19 +66,9 @@ public class TestFilm {
 		planetTerror.addLeute(leute);
 		assertEquals(2007, planetTerror.getErscheinungsjahr());
 	}
-	
-	@Test
-	public void testGetSizeLeute() {
-		ArrayList<Person> leute = new ArrayList<Person>();
-		leute.add(new Person("Jeff","Fahey", true));
-		leute.add(new Person("Bruce","Willis", true));
-		leute.add(new Person("Josh","Brolin", true));
-		Film planetTerror = new Film("Planet Terror", "Action", 2007);
-		planetTerror.addLeute(leute);
-		assertEquals(3, planetTerror.getSizeLeute());
-	}
-	
-	
+	/**
+	 * test getter Person
+	 */
 	@Test
 	public void testGetPerson() {
 		ArrayList<Person> leute = new ArrayList<Person>();
