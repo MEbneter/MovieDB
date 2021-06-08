@@ -137,8 +137,6 @@ public class MovieController {
 			ObjectOutputStream out = new ObjectOutputStream(file);
 			
 			// Hier sollts ins file schreiben
-			//out.writeObject(filmList.getFilme());
-			//out.writeObject(filmList);
 			for (Film f : filmListe){
 				out.writeObject(f);
 			}
@@ -255,8 +253,8 @@ public class MovieController {
 			else if (button == view.getCbFilterGenre()) {
 				DefaultListModel movieListModel = new DefaultListModel<>();
 				try {	
-					for (Film film : filmList) {		
-							if (film.getGenre() == view.getFilterGenreItem()) {
+					for (Film film : filmList) {
+							if (view.getFilterGenreItem().toString().equals(film.getGenre())) {
 								movieListModel.addElement(film.getTitel());
 							} else if (view.getFilterGenreIndex() == 0) {
 								movieListModel.addElement(film.getTitel());
