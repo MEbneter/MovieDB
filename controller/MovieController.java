@@ -4,11 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -29,6 +24,7 @@ public class MovieController {
 	private NewMovieWindow newMovie;
 	private NewPersonWindow newPerson;
 	private Film selectedMovie;
+	private FileController movieIO;
 	/**
 	 * main
 	 * @param args
@@ -41,12 +37,13 @@ public class MovieController {
 	 * konstruktor
 	 */
 	public MovieController (){
+		this.movieIO = new FileController();
 		this.view = new MovieView();
 		this.newMovie = new NewMovieWindow(this.view);
 		this.newPerson = new NewPersonWindow(this.view);
 		this.btnAction = new MyActions();
 		this.mouseAction = new MyMouseAction();
-		this.filmList = readMovieList();
+		this.filmList = movieIO.readMovieList();
 		for (Film film : filmList) {
 			System.out.println("Titel: " + film.getTitel());
 			System.out.println("Genre: " + film.getGenre());
@@ -123,59 +120,6 @@ public class MovieController {
 		}
 		return index;
 	}
-	/**
-	 *  ka, läuft nicht mit dem serialisieren
-	 */
-	
-	public static void saveMovieList (ArrayList<Film> filmListe) {
-		String filename = "movieList.ser";
-		// Serialization des Objekts filmList
-		try
-		{
-			//objekte für fileoutput und object output
-			FileOutputStream file = new FileOutputStream(filename);
-			ObjectOutputStream out = new ObjectOutputStream(file);
-			
-			// Hier sollts ins file schreiben
-			for (Film f : filmListe){
-				out.writeObject(f);
-			}
-			out.close();
-			file.close();		
-			System.out.println("Object wurde serializsiert");
-		}
-		
-		catch(IOException ex)
-		{
-			ex.printStackTrace();
-			System.out.println("IOException ist aufgetretten");
-		}
-	}
-	
-	public static ArrayList<Film> readMovieList () {
-		ArrayList<Film> tMovieList = new ArrayList<Film>();
-		try {
-			String filename = "movieList.ser";
-			// objekte für fileinput und objektinput
-			FileInputStream file = new FileInputStream(filename);
-			ObjectInputStream in = new ObjectInputStream(file);
-			// inhalt der file der FilmList hinzufügen
-			Film film = null;	
-			while ((film = (Film) in.readObject()) != null) {
-				tMovieList.add(film);
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println("IOException ist aufgetretten");
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("ClassNotFoundException ist aufgetretten");
-			e.printStackTrace();
-		}
-		return tMovieList;
-	}
-	
 	
 	public class MyActions implements ActionListener {
 
@@ -214,7 +158,7 @@ public class MovieController {
 				if (vName.length() > 0 && nName.length() > 0) {
 				Person newDude = new Person(vName, nName, aufgabe);
 				filmList.get(getSelectedMovieIndex(view.getMovieListItem())).addPerson(newDude);
-				saveMovieList(filmList);
+				movieIO.saveMovieList(filmList);
 				newPerson.setVisible(false);
 				} else {
 					JOptionPane.showMessageDialog(view, "Bitte alle Felder ausfüllen.");
@@ -237,7 +181,7 @@ public class MovieController {
 								movieListModel.addElement(film.getTitel());
 							}
 							view.setMovieListModel(movieListModel);
-							saveMovieList(filmList);
+							movieIO.saveMovieList(filmList);
 						} catch (Exception e) {
 						// TODO: handle exception
 							JOptionPane.showMessageDialog(view, "Das Jahr muss aus 4 Zahlen bestehen.");
@@ -322,29 +266,26 @@ public class MovieController {
 				view.setPersonListModel(personListModel);
 			}
 		}
-
+		/**
+		 * umgenutzte Methoden
+		 */
 		@Override
 		public void mouseEntered(MouseEvent hey) {
 			// TODO Auto-generated method stub
 			
 		}
-
 		@Override
 		public void mouseExited(MouseEvent hey) {
-			// TODO Auto-generated method stub
-			
+			// TODO Auto-generated method stub			
 		}
-
 		@Override
 		public void mousePressed(MouseEvent hey) {
-			// TODO Auto-generated method stub
-			
+			// TODO Auto-generated method stub		
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent hey) {
-			// TODO Auto-generated method stub
-			
+			// TODO Auto-generated method stub			
 		}
 		
 	}
