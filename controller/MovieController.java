@@ -48,11 +48,6 @@ public class MovieController {
 		this.btnAction = new MyActions();
 		this.mouseAction = new MyMouseAction();
 		this.filmList = movieIO.readMovieList();
-		for (Film film : filmList) {
-			System.out.println("Titel: " + film.getTitel());
-			System.out.println("Genre: " + film.getGenre());
-			System.out.println("Jahr: " + film.getErscheinungsjahr());
-		}
 	}
 	/**
 	 * set up fürs Programm

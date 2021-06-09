@@ -13,7 +13,7 @@ public class Film implements Serializable {
 	private String titel;
 	private String genre;
 	private ArrayList<Person> leute;
-	int erscheinungsjahr;
+	private int erscheinungsjahr;
 	/**
 	 * 
 	 * @param titel

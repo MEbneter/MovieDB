@@ -35,7 +35,6 @@ public class MovieView extends JFrame {
 	private JLabel lblGenre;
 	private JComboBox cbFilterGenre;
 	private JComboBox cbFilterAufgabe;
-
 	/**
 	 * Create the frame. Hauptfenster
 	 */
