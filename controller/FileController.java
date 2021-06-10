@@ -30,7 +30,7 @@ public class FileController {
 			}
 			out.close();
 			file.close();		
-			System.out.println("Object wurde serializsiert");
+			System.out.println("Object wurde serialisiert");
 		}
 		
 		catch(IOException ex)

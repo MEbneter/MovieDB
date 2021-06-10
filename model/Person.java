@@ -9,6 +9,10 @@ import java.io.Serializable;
  */
 public class Person implements Serializable {
 	
+	/**
+	 * 
+	 */
+
 	private String vName;
 	private String nName;
 	private boolean schauspieler;
