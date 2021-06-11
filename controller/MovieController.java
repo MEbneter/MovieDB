@@ -255,11 +255,13 @@ public class MovieController {
 			 * Personen vom Movie werden in die PersonenListe geladen
 			 */
 			if (liste == view.getMovieList()) {
-				selectedMovie = getSelectedMovie(view.getMovieListItem());
-				
+				if (hey.getClickCount() == 2) {
+					newPerson.setTitle(getSelectedMovie(view.getMovieListItem()).getTitel());
+					newPerson.setVisible(true);
+		          }
 				DefaultListModel personListModel = new DefaultListModel<>();
 				try {
-					for (Person dude : selectedMovie.getLeute()) {
+					for (Person dude : getSelectedMovie(view.getMovieListItem()).getLeute()) {
 						String theDude = dude.getVName() + " " + dude.getNName() + " / " + dude.getAufgabe();
 						personListModel.addElement(theDude);
 					}
@@ -267,9 +269,9 @@ public class MovieController {
 					// TODO: handle exception
 					personListModel.removeAllElements();
 				}
-				view.setTextTitel(selectedMovie.getTitel());
-				view.setTextGenre(selectedMovie.getGenre());
-				view.setTextErscheinungsjahr(selectedMovie.getErscheinungsjahr());
+				view.setTextTitel(getSelectedMovie(view.getMovieListItem()).getTitel());
+				view.setTextGenre(getSelectedMovie(view.getMovieListItem()).getGenre());
+				view.setTextErscheinungsjahr(getSelectedMovie(view.getMovieListItem()).getErscheinungsjahr());
 				view.setPersonListModel(personListModel);
 			}
 		}
